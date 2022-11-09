@@ -1,61 +1,62 @@
 ﻿#----------------------------------------------------------#
-# ディレクトリパス定義
+# The difinition of the directories.
 
-## srcディレクトリ
+## The directory *src*.
 SRCDIRPATH=.\src
 
-## 生成する場所の指定
+## The directory you want to create on.
 BINDIRPATH=.\bin
 
 #----------------------------------------------------------#
-# 生成する対象の指定
+# The difinition of the target you want to create.
 
-## 対象のプロジェクト
+## The target project name.
 TARGET=$(BINDIRPATH)\Main
 
-## 対象リスト
+## The target projects.
 all: $(TARGET)
 
 #----------------------------------------------------------#
-# コンパイラ関連の定義
+# The difintion for the compilers.
 
-## コンパイラの指定
+## The definiton of the compiler.
 CCX=g++
 
-## 最適化について
+## The difinition of the optimization.
 OPTIMIZE=-o2
 
-## C++のバージョン指定
+## The difinition of the version( of C++ ).
 CPP_VERSION=-std=c++11
 
-## インクルードの指定 ( -Iでやるやつ )
+## The difinition of includion-path ( like -I<PATH> )
 ICOMMAND=
 
-## リンカのフラグ
+## The difinition of LINKAGE.
 LDFLAG=-O0
 
-## コンパイラフラグ
+## The compiler flags.
 CFLAG=$(OPTIMIZE) $(CPP_VERSION) $(ICOMMAND)
 
-## リンクする独自ソースコード
+## The source codes you want to compile.
 LINKAGEFILES=$(SRCDIRPATH)\main.o
 
+## The difinition of MinGW-static-lib.
 MINGW_STATIC_LINKAGE=-static-libgcc -static-libstdc++ -static -lpthread
 
 #----------------------------------------------------------#
-# コンパイル
+# Compile
 
-## 対象プロジェクトのコンパイル
+## Compilation for the target.
 $(TARGET): $(LINKAGEFILES)
 	$(CCX) $(CFLAG) -o $@ $< $(MINGW_STATIC_LINKAGE) -mwindows
 
-## 必要なオブジェクトファイルのコンパイル
+## Compilation for sources the compiler wants.
 main.o:
 	$(CCX) -c $<
 
 #----------------------------------------------------------#
-# 後始末
+# Cleaning up
 
-## 削除系
+## Cleaning up
 clean:
 	@rm -rf $(LINKAGEFILES) $(TARGET)
